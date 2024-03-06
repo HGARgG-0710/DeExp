@@ -1,0 +1,12 @@
+{
+	"name": "deexp",
+	"version": "v0.1",
+	"author": "hgargg-0710", 
+	"bin": "src/main.mjs", 
+	"repository": {
+		"type": "git", 
+		"url": "git+https://github.com/HGARgG-0710/deexp.git"
+	}, 
+	"keywords": [], 
+	"license": "MIT"
+}

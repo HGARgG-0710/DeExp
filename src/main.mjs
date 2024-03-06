@@ -1,14 +1,36 @@
+//!/usr/bin/env node
+
+// ? Add an actual cmd-utility? Pray do...
 import { reExp, deExp, addExp } from "./api.mjs"
 import { readFile, writeFile } from "fs/promises"
 
-const contents = await readFile(process.argv[1])
-const [modeInd, writeInd] = [2, 3].map((x) => (x + process.argv.length > 4 ? 4 : 0))
+const regexpFromArg = (x) => RegExp(x.slice(...("/" === x[0] ? [1, x.length - 1] : [])))
 
-const mode = process.argv[modeInd]
-const command = ["delete", "de"].includes(mode)
-	? deExp
-	: ["replace", "re"].includes(mode)
-	? reExp
-	: addExp
-const args = process.argv.slice(modeInd, writeInd)
-writeFile(process.argv[writeInd], command(contents, ...args))
+const commands = [deExp, reExp, addExp]
+
+const mode = ["delete", "de"].includes(process.argv[3])
+	? 0
+	: ["replace", "re"].includes(process.argv[3])
+	? 1
+	: ["add", "ad"].includes(mode)
+	? 2
+	: (() => {
+			throw new Error(`Unknown command ${process.argv[3]} passed`)
+	  })()
+await writeFile(
+	process.argv[2],
+	commands[mode](
+		await readFile(process.argv[1]),
+		...process.argv
+			.slice(4)
+			.toString()
+			.split("\n")
+			.map(
+				!mode
+					? regexpFromArg
+					: mode === 1
+					? (x, i) => (i ? x : regexpFromArg(x))
+					: (x, i) => (i > 0 ? regexpFromArg(x) : x)
+			)
+	)
+)
