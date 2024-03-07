@@ -1,0 +1,3 @@
+Tested command: 
+
+npx deexp "in.txt" "out.txt" "re" "/(l+)|(wh)|(were)/" "Ah"

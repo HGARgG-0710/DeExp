@@ -6,13 +6,14 @@ import { readFile, writeFile } from "fs/promises"
 
 const regexpFromArg = (x) => {
 	const dashSplit = x.split("/")
+	const isDashed = "/" === x[0]
 	return RegExp(
 		x.slice(
-			...("/" === x[0]
+			...(isDashed
 				? [1, x.length - 1 - dashSplit[dashSplit.length - 1].length]
 				: [])
 		),
-		dashSplit[dashSplit.length - 1].split("").concat(["g"])
+		(isDashed ? dashSplit[dashSplit.length - 1].split("") : []).concat(["g"])
 	)
 }
 
@@ -39,7 +40,7 @@ await writeFile(
 					? regexpFromArg
 					: mode === 1
 					? (x, i) => (i ? x : regexpFromArg(x))
-					: (x, i) => (i > 0 ? regexpFromArg(x) : x)
+					: (x, i) => (i > 0 ? (x === "" ? undefined : regexpFromArg(x)) : x)
 			)
 	)
 )

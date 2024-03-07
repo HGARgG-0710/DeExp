@@ -1,0 +1,5 @@
+Tested commands: 
+
+npx deexp "in.txt" "out1.txt" "ad" "A Light Yellow :3" "/\n/"
+npx deexp "in.txt" "out2.txt" "ad" "The Bright Moon Was Shining, The Hour Was Late!" "/\n/" "Simliag"
+npx deexp "in.txt" "out3.txt" "ad" "Marauder, marauder, my soul weary be! Maurader, maurader, oh come set me free!" "" "/B(o|O)/"

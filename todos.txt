@@ -1,1 +1,2 @@
 1. Add Deno support. 
+2. Add error handling.
