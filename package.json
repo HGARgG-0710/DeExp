@@ -1,6 +1,6 @@
 {
 	"name": "deexp",
-	"version": "v0.1",
+	"version": "0.1.0",
 	"author": "hgargg-0710",
 	"main": "src/api.mjs",
 	"bin": "src/main.mjs",
